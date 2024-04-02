@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  microservice-b:
+    image: pollitodev/microservice-example-microservice-b:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8000:8000"
+    networks:
+      - pollito-mocroservice-example-network
+
+networks:
+  pollito-mocroservice-example-network:
