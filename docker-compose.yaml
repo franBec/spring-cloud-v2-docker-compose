@@ -9,6 +9,18 @@ services:
     networks:
       - pollito-mocroservice-example-network
 
+  api-gateway:
+    image: pollitodev/microservice-example-api-gateway:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8765:8765"
+    networks:
+      - pollito-mocroservice-example-network
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE:  http://naming-server:8761/eureka
+
   microservice-a:
     image: pollitodev/microservice-example-microservice-a:0.0.1-SNAPSHOT
     mem_limit: 700m
@@ -20,6 +32,7 @@ services:
       - naming-server
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE:  http://naming-server:8761/eureka
+      MICROSERVICE-B.BASEURL:  http://api-gateway:8765/microservice-b
 
   microservice-b:
     image: pollitodev/microservice-example-microservice-b:0.0.1-SNAPSHOT
