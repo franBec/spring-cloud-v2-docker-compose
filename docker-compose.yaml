@@ -7,24 +7,24 @@ services:
     ports:
       - "9411:9411"
     networks:
-      - pollito-mocroservice-example-network
+      - pollito-spring-cloud-v2-network
     restart: always 
 
   naming-server:
-    image: pollitodev/microservice-example-naming-server:0.0.1-SNAPSHOT
+    image: pollitodev/spring-cloud-v2-naming-server:0.0.1-SNAPSHOT
     mem_limit: 700m
     ports:
       - "8761:8761"
     networks:
-      - pollito-mocroservice-example-network
+      - pollito-spring-cloud-v2-network
 
   api-gateway:
-    image: pollitodev/microservice-example-api-gateway:0.0.1-SNAPSHOT
+    image: pollitodev/spring-cloud-v2-api-gateway:0.0.1-SNAPSHOT
     mem_limit: 700m
     ports:
       - "8765:8765"
     networks:
-      - pollito-mocroservice-example-network
+      - pollito-spring-cloud-v2-network
     depends_on:
       - naming-server
       - zipkin-server
@@ -33,12 +33,12 @@ services:
       MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
 
   microservice-a:
-    image: pollitodev/microservice-example-microservice-a:0.0.1-SNAPSHOT
+    image: pollitodev/spring-cloud-v2-microservice-a:0.0.1-SNAPSHOT
     mem_limit: 700m
     ports:
       - "8100:8100"
     networks:
-      - pollito-mocroservice-example-network
+      - pollito-spring-cloud-v2-network
     depends_on:
       - naming-server
       - zipkin-server
@@ -49,12 +49,12 @@ services:
       MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
 
   microservice-b:
-    image: pollitodev/microservice-example-microservice-b:0.0.1-SNAPSHOT
+    image: pollitodev/spring-cloud-v2-microservice-b:0.0.1-SNAPSHOT
     mem_limit: 700m
     ports:
       - "8000:8000"
     networks:
-      - pollito-mocroservice-example-network
+      - pollito-spring-cloud-v2-network
     depends_on:
       - naming-server
       - zipkin-server
@@ -64,4 +64,4 @@ services:
       MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
 
 networks:
-  pollito-mocroservice-example-network:
+  pollito-spring-cloud-v2-network:
